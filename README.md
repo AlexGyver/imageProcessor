@@ -27,7 +27,7 @@
 - Отражение по горизонтали и вертикали
 - Сохранение в файл, копирование в буфер обмена
 
-## Релиз
+## Скачать релиз
 - [Windows 32](https://github.com/AlexGyver/imageProcessor/releases/download/imageProcessor/win32.zip)
 - [Windows 64](https://github.com/AlexGyver/imageProcessor/releases/download/imageProcessor/win64.zip)
 - [Linux 32](https://github.com/AlexGyver/imageProcessor/releases/download/imageProcessor/linux32.zip)
@@ -36,7 +36,7 @@
 - [Linux armv6hf](https://github.com/AlexGyver/imageProcessor/releases/download/imageProcessor/linux-armv6hf.zip)
 
 ## Исходник
-Программа сделана в [Processing](https://processing.org/). Используется библиотека controlP5, установить можно через встроенный менеджер библиотек (Набросок/Импортировать библиотеку/Добавить библиотеку.../Libraries/ Искать controlP5).
+Программа сделана в [Processing](https://processing.org/). Используется библиотека **controlP5**, установить можно через встроенный менеджер библиотек (*Набросок/Импортировать библиотеку/Добавить библиотеку.../Libraries/* Искать **controlP5**). Также для работы Processing нужна [Java](https://www.java.com/ru/download/).
 
 ## Версии
 - v1.0 - поехали
