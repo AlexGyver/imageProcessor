@@ -27,12 +27,12 @@
 - Сохранение в файл, копирование в буфер обмена
 
 ## Релиз
-- [Windows 32]()
-- [Windows 64]()
-- [Linux 32]()
-- [Linux 64]()
-- [Linux arm64]()
-- [Linux armv6hf]()
+- [Windows 32](https://github.com/AlexGyver/imageProcessor/releases/download/imageProcessor/win32.zip)
+- [Windows 64](https://github.com/AlexGyver/imageProcessor/releases/download/imageProcessor/win64.zip)
+- [Linux 32](https://github.com/AlexGyver/imageProcessor/releases/download/imageProcessor/linux32.zip)
+- [Linux 64](https://github.com/AlexGyver/imageProcessor/releases/download/imageProcessor/linux64.zip)
+- [Linux arm64](https://github.com/AlexGyver/imageProcessor/releases/download/imageProcessor/linux-arm64.zip)
+- [Linux armv6hf](https://github.com/AlexGyver/imageProcessor/releases/download/imageProcessor/linux-armv6hf.zip)
 
 ## Исходник
 Программа сделана в [Processing](https://processing.org/). Используется библиотека controlP5, установить можно через встроенный менеджер библиотек (Набросок/Импортировать библиотеку/Добавить библиотеку.../Libraries/ Искать controlP5).
