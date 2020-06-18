@@ -1,5 +1,6 @@
 # imageProcessor
 Программа для преобразования изображений в битмап код. Для работы нужна [Java](https://www.java.com/ru/download/)
+![КАРТИНКА](https://github.com/AlexGyver/imageProcessor/blob/master/docs/image.jpg)
 
 ## Возможности
 - Поддержка популярных форматов изображений
