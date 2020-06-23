@@ -33,12 +33,12 @@
 - Изображение можно масштабировать вращением колеса мыши
 
 ## Скачать релиз
-- [Windows 32](https://github.com/AlexGyver/imageProcessor/releases/download/imageProcessor/win32.zip)
-- [Windows 64](https://github.com/AlexGyver/imageProcessor/releases/download/imageProcessor/win64.zip)
-- [Linux 32](https://github.com/AlexGyver/imageProcessor/releases/download/imageProcessor/linux32.zip)
-- [Linux 64](https://github.com/AlexGyver/imageProcessor/releases/download/imageProcessor/linux64.zip)
-- [Linux arm64](https://github.com/AlexGyver/imageProcessor/releases/download/imageProcessor/linux-arm64.zip)
-- [Linux armv6hf](https://github.com/AlexGyver/imageProcessor/releases/download/imageProcessor/linux-armv6hf.zip)
+- [Windows 32](https://github.com/AlexGyver/imageProcessor/releases/download/v1.2/application.windows32.zip)
+- [Windows 64](https://github.com/AlexGyver/imageProcessor/releases/download/v1.2/application.windows64.zip)
+- [Linux 32](https://github.com/AlexGyver/imageProcessor/releases/download/v1.2/application.linux32.zip)
+- [Linux 64](https://github.com/AlexGyver/imageProcessor/releases/download/v1.2/application.linux64.zip)
+- [Linux arm64](https://github.com/AlexGyver/imageProcessor/releases/download/v1.2/application.linux-arm64.zip)
+- [Linux armv6hf](https://github.com/AlexGyver/imageProcessor/releases/download/v1.2/application.linux-armv6hf.zip)
 
 ## Исходник
 Программа сделана в [Processing](https://processing.org/). Используется библиотека **controlP5**, установить можно через встроенный менеджер библиотек (*Набросок/Импортировать библиотеку/Добавить библиотеку.../Libraries/* Искать **controlP5**). Также для работы Processing нужна [Java](https://www.java.com/ru/download/).
