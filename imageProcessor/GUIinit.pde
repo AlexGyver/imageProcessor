@@ -26,6 +26,16 @@ void GUIinit() {
     }
   }
   );
+  cp5.getController("image_pos").onDoublePress(new CallbackListener() {
+    public void controlEvent(CallbackEvent ev) {
+      sliderXY.setValue(0, 0);
+      imageXresult = 0;
+      imageYresult = 0;
+      imageXadd = 0;
+      imageYadd = 0;
+    }
+  }
+  );
 
 
   sliderBC = cp5.addSlider2D("br_contr").setPosition(120, 100).setSize(100, 100).setMinMax(-128, 0.0, 128, 5.0).setValue(0, 1);  
@@ -59,28 +69,38 @@ void GUIinit() {
   cp5.addSlider("result_height").setCaptionLabel("RESULT  HEIGHT").setPosition(10, 490).setSize(210, 25).setRange(1, maxHeight).setValue(64).setNumberOfTickMarks(maxHeight-1).showTickMarks(false);
   cp5.getController("result_height").getCaptionLabel().setPaddingX(-65);
 
-  //cp5.addButtonBar("bar").setPosition(10, 520).setSize(155, 25).addItem("mono", "mono").addItem("rgb16", "rgb16").addItem("rgb32", "rgb32").addItem("oled", "oled"); 
+  cp5.addToggle("b_dimension").setPosition(175, 520).setSize(45, 25).setMode(ControlP5.SWITCH).setValue(true).setCaptionLabel("1D ARRAY");
 
-  cp5.addToggle("progmem").setPosition(10, 550).setSize(45, 25).setMode(ControlP5.SWITCH).setValue(false);
-  cp5.addToggle("invert_result").setCaptionLabel("INVERT").setPosition(65, 550).setSize(45, 25).setMode(ControlP5.SWITCH).setValue(true);
-  cp5.addToggle("flip_x").setPosition(120, 550).setSize(45, 25).setMode(ControlP5.SWITCH).setValue(true);
-  cp5.addToggle("flip_y").setPosition(175, 550).setSize(45, 25).setMode(ControlP5.SWITCH).setValue(true);
+  cp5.addToggle("progmem").setPosition(10, 570).setSize(45, 25).setMode(ControlP5.SWITCH).setValue(false);
+  cp5.addToggle("invert_result").setCaptionLabel("INVERT").setPosition(65, 570).setSize(45, 25).setMode(ControlP5.SWITCH).setValue(true);
+  cp5.addToggle("flip_x").setPosition(120, 570).setSize(45, 25).setMode(ControlP5.SWITCH).setValue(true);
+  cp5.addToggle("flip_y").setPosition(175, 570).setSize(45, 25).setMode(ControlP5.SWITCH).setValue(true);
 
-  cp5.addButton("save_bitmap").setCaptionLabel("SAVE  BITMAP").setPosition(10, 600).setSize(100, 25);
-  cp5.addButton("copy_clipboard").setCaptionLabel("COPY  BITMAP").setPosition(120, 600).setSize(100, 25);
+  cp5.addTextfield("name")
+    .setPosition(10, 620)
+    .setSize(100, 25)
+    .setFont(createFont("arial", 15))
+    .setAutoClear(false)
+    .setCaptionLabel("")
+    .setText("bitmap")
+    ;
+
+  cp5.addButton("save_bitmap").setCaptionLabel("SAVE").setPosition(120, 620).setSize(45, 25);
+  cp5.addButton("copy_clipboard").setCaptionLabel("COPY").setPosition(175, 620).setSize(45, 25);
 
   mode_list = cp5.addScrollableList("dropdown")
     .setCaptionLabel("OLED, 8 pix/byte, BW")
     .setPosition(10, 520)
-    .setSize(210, 150)
+    .setSize(155, 150)
     .setBarHeight(25)
     .setItemHeight(20)
     .addItem("OLED, 8 pix/byte, BW", "drop0")
     .addItem("8 pix/byte, BW", "drop1")
     .addItem("1 pix/byte, BW", "drop2")
     .addItem("1 pix/byte, Gray", "drop3")
-    .addItem("1 pix/int16 (RGB565)", "drop4")
-    .addItem("1 pix/int32 (RGB888)", "drop5")
+    .addItem("1 pix/int8 (RGB323)", "drop4")
+    .addItem("1 pix/int16 (RGB565)", "drop5")
+    .addItem("1 pix/int32 (RGB888)", "drop6")
     .close()
     ;
   cp5.getController("dropdown").onRelease(new CallbackListener() {

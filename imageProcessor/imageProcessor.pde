@@ -4,17 +4,16 @@
 // v1.0 - поехали
 // v1.1 - исправил ошибки, добавил другие варианты вывода, инверсию и флип по Х и У, расширенный help
 // v1.2 - изменена логика перемещения изображения, добавлено перемещение удерживанием колеса мыши и масштаба - вращением
+// v1.3 - добавлен выбор между одномерным и двумерным битмапом
+// v1.4 - исправлены ошибки, добавлено имя битмапа
+// v1.5 - добавлен формат RGB323
 
 // constants
-int nodeOffset = 5;        // мин. расстояние до следующего узла
 int offsetWidth = 230;     // оффсет панели управления
-int maxLines = 5000;       // макс. количество линий
-int lastNodeWIndow = 10;   // окно последних повторяющихся узлов
-int nailLength = 2;        // "длина" одного гвоздя для расчёта
 int maxWidth = 650;
 int maxHeight = 650;
 
-// P5
+// ControlP5
 // http://www.sojamo.de/libraries/controlP5/reference/index.html
 import controlP5.*;
 ControlP5 cp5;
@@ -71,9 +70,10 @@ boolean langulage = false;  // 0 рус, 1 англ
 boolean mouseState = false;
 int draggedX, draggedY;
 int draggedXadd, draggedYadd;
+boolean dimension = false;
 
 void setup() {  
-  surface.setTitle("imageProcessor v1.2");
+  surface.setTitle("imageProcessor v1.5");
   size(1200, 700);
   frameRate(60);
   smooth();

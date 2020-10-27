@@ -117,6 +117,11 @@ void dropdown(int val) {
   cp5.getController("flip_y").setVisible(true);
 }
 
+void b_dimension(boolean val) {
+  dimension = !val;
+  cp5.getController("b_dimension").setCaptionLabel(dimension ? "2D ARRAY" : "1D ARRAY");
+}
+
 void progmem(boolean val) {
   progmem = !val;
 }
@@ -130,85 +135,117 @@ void flip_y(boolean val) {
   flipY = !val;
 }
 
+String generateName(int arrayH, int arrayW) {
+  return ("_"+resultWidth+"x"+resultHeight+(dimension ? "["+ arrayH +"]["+ arrayW +"]" : "[]") + (progmem ? " PROGMEM" : "") + " = {\n");
+}
+
+
 void generateBitmap() {
+  String thisName = cp5.get(Textfield.class, "name").getText();
   saveLines = "";
   switch (saveMode) {
   case 0:  
     // ==== битмап для оледов ====
-    int numRows = ceil(resultHeight / 8);
-    saveLines = "const uint8_t bitmap_"+resultWidth+"x"+resultHeight+"[]" + (progmem ? " PROGMEM" : "") + " = {\n";
+    int numRows = ceil(resultHeight / 8.0);    
+    saveLines = "const uint8_t " + thisName + generateName(numRows, resultWidth);
 
     for (byte r = 0; r < numRows; r++) {
       saveLines += "\t";
+      if (dimension) saveLines += "{";
       for (int j = 0; j < resultWidth; j++) {     
         byte thisByte = 0;
         for (byte b = 0; b < 8; b++) thisByte |= getPixBW(j, r*8+7-b) << (7-b);          
         saveLines += "0x" + hex(thisByte, 2);
         saveLines += ", ";
       }
+      if (dimension) saveLines += "},";
       saveLines += "\n";
     }
     saveLines += "};";
     break;
   case 1:
     // линейный битмап
-    saveLines = "const uint8_t bitmap_"+resultWidth+"x"+resultHeight+"[]" + (progmem ? " PROGMEM" : "") + " = {\n";
+    saveLines = "const uint8_t " + thisName + generateName(resultHeight, resultWidth/8);
     for (byte h = 0; h < resultHeight; h++) {
       saveLines += "\t";
+      if (dimension) saveLines += "{";
       for (int i = 0; i < resultWidth; i+=8) {      
         byte thisByte = 0;
         for (byte b = 0; b < 8; b++) thisByte |= getPixBW(b+i, h) << (7-b);          
         saveLines += "0x" + hex(thisByte, 2);
         saveLines += ", ";
       }
+      if (dimension) saveLines += "},";
       saveLines += "\n";
     }
     saveLines += "};";
     break;
   case 2:
     // 1 pix/byte, BW
-    saveLines = "const uint8_t bitmap_"+resultWidth+"x"+resultHeight+"[]" + (progmem ? " PROGMEM" : "") + " = {\n";
+    saveLines = "const uint8_t " + thisName + generateName(resultHeight, resultWidth);
     for (int y = 0; y < resultHeight; y++) {
       saveLines += "\t";
+      if (dimension) saveLines += "{";
       for (int x = 0; x < resultWidth; x++) {
         saveLines += getPixBW(x, y) + ", ";
       }
+      if (dimension) saveLines += "},";
       saveLines += "\n";
     }
     saveLines += "};";
     break;
   case 3:
     // ==== 1 pix/byte, Gray ====
-    saveLines = "const uint8_t bitmap_"+resultWidth+"x"+resultHeight+"[]" + (progmem ? " PROGMEM" : "") + " = {\n";
+    saveLines = "const uint8_t " + thisName + generateName(resultHeight, resultWidth);
     for (int y = 0; y < resultHeight; y++) {
       saveLines += "\t";
+      if (dimension) saveLines += "{";
       for (int x = 0; x < resultWidth; x++) {
         saveLines += "0x" + hex(getPixGray(x, y), 2) + ", ";
       }
+      if (dimension) saveLines += "},";
       saveLines += "\n";
     }
     saveLines += "};";
     break;
   case 4:
-    // ==== rgb16 ====
-    saveLines = "const uint16_t bitmap_"+resultWidth+"x"+resultHeight+"[]" + (progmem ? " PROGMEM" : "") + " = {\n";
+    // ==== rgb8 ====
+    saveLines = "const uint8_t " + thisName + generateName(resultHeight, resultWidth);
     for (int y = 0; y < resultHeight; y++) {
       saveLines += "\t";
+      if (dimension) saveLines += "{";
       for (int x = 0; x < resultWidth; x++) {
-        saveLines += "0x" + hex(getPixRGB32(x, y), 4) + ", ";
+        saveLines += "0x" + hex(getPixRGB8(x, y), 2) + ", ";
       }
+      if (dimension) saveLines += "},";
       saveLines += "\n";
     }
     saveLines += "};";
     break;
   case 5:
-    // ==== rgb32 ====
-    saveLines = "const uint32_t bitmap_"+resultWidth+"x"+resultHeight+"[]" + (progmem ? " PROGMEM" : "") + " = {\n";
+    // ==== rgb16 ====
+    saveLines = "const uint16_t " + thisName + generateName(resultHeight, resultWidth);
     for (int y = 0; y < resultHeight; y++) {
       saveLines += "\t";
+      if (dimension) saveLines += "{";
+      for (int x = 0; x < resultWidth; x++) {
+        saveLines += "0x" + hex(getPixRGB16(x, y), 4) + ", ";
+      }
+      if (dimension) saveLines += "},";
+      saveLines += "\n";
+    }
+    saveLines += "};";
+    break;
+  case 6:
+    // ==== rgb32 ====
+    saveLines = "const uint32_t " + thisName + generateName(resultHeight, resultWidth);
+    for (int y = 0; y < resultHeight; y++) {
+      saveLines += "\t";
+      if (dimension) saveLines += "{";
       for (int x = 0; x < resultWidth; x++) {
         saveLines += "0x" + hex(getPixRGB32(x, y), 6) + ", ";
       }
+      if (dimension) saveLines += "},";
       saveLines += "\n";
     }
     saveLines += "};";
@@ -257,10 +294,13 @@ int getPixRGB32(int x, int y) {
 int getPixRGB16(int x, int y) {
   if (x >= resultWidth || y >= resultHeight) return 0;
   int col = getColor(x, y);
-  int red = (col & 0x00FF0000) >> 16;
-  int green = (col & 0x0000FF00) >> 8;
-  int blue =  col & 0x000000FF;
-  return (red >> 3 << 11) + (green >> 2 << 5) + (blue >> 3);
+  return ( (((col) & 0xF80000) >> 8) | (((col) & 0xFC00) >> 5) | (((col) & 0xF8) >> 3));
+}
+
+int getPixRGB8(int x, int y) {
+  if (x >= resultWidth || y >= resultHeight) return 0;
+  int col = getColor(x, y);
+  return ( (((col) & 0xE00000) >> 16) | (((col) & 0xC000) >> 11) | (((col) & 0xE0) >> 5));
 }
 
 // ================ BOTTOM ==================
@@ -295,14 +335,14 @@ void showHelp() {
   textPos[9] = 480;
   textPos[10] = 510; 
   textPos[11] = 540;
-  textPos[12] = 570; 
-  textPos[13] = 620;
+  textPos[12] = 590; 
+  textPos[13] = 650;
   textPos[14] = height - 10; 
 
   noFill();
   stroke(0);
   strokeWeight(3);
-  rect(840, 3, 300, 520);
+  rect(840, 3, 300, 610);
 
   PFont myFont;
   myFont = createFont("Ubuntu", 15);
@@ -315,7 +355,7 @@ void showHelp() {
   for (byte i = 0; i < 15; i++) {
     text(helpText[i], 240, textPos[i]);
   }
-  for (byte i = 0; i < 34; i++) {
+  for (byte i = 0; i < 40; i++) {
     text(helpText[i+16], 850, 20+i*15);
   }
 }
