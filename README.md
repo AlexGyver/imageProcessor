@@ -33,13 +33,13 @@
 - Изображение можно перемещать удерживанием колеса мыши
 - Изображение можно масштабировать вращением колеса мыши
 
-## Скачать релиз v1.5
-- [Windows 32](https://github.com/AlexGyver/imageProcessor/releases/download/v1.5/application.windows32.zip)
-- [Windows 64](https://github.com/AlexGyver/imageProcessor/releases/download/v1.5/application.windows64.zip)
-- [Linux 32](https://github.com/AlexGyver/imageProcessor/releases/download/v1.5/application.linux32.zip)
-- [Linux 64](https://github.com/AlexGyver/imageProcessor/releases/download/v1.5/application.linux64.zip)
-- [Linux arm64](https://github.com/AlexGyver/imageProcessor/releases/download/v1.5/application.linux-arm64.zip)
-- [Linux armv6hf](https://github.com/AlexGyver/imageProcessor/releases/download/v1.5/application.linux-armv6hf.zip)
+## Скачать релиз v1.5.1
+- [Windows 32](https://github.com/AlexGyver/imageProcessor/releases/download/v1.5.1/application.windows32.zip)
+- [Windows 64](https://github.com/AlexGyver/imageProcessor/releases/download/v1.5.1/application.windows64.zip)
+- [Linux 32](https://github.com/AlexGyver/imageProcessor/releases/download/v1.5.1/application.linux32.zip)
+- [Linux 64](https://github.com/AlexGyver/imageProcessor/releases/download/v1.5.1/application.linux64.zip)
+- [Linux arm64](https://github.com/AlexGyver/imageProcessor/releases/download/v1.5.1/application.linux-arm64.zip)
+- [Linux armv6hf](https://github.com/AlexGyver/imageProcessor/releases/download/v1.5.1/application.linux-armv6hf.zip)
 
 ## Исходник
 Программа сделана в [Processing](https://processing.org/). Используется библиотека **controlP5**, установить можно через встроенный менеджер библиотек (*Набросок/Импортировать библиотеку/Добавить библиотеку.../Libraries/* Искать **controlP5**). Также для работы Processing нужна [Java](https://www.java.com/ru/download/).
@@ -51,3 +51,4 @@
 - v1.3 - добавлен выбор между одномерным и двумерным битмапом
 - v1.4 - исправлены ошибки, добавлено имя битмапа
 - v1.5 - добавлен формат RGB323, исправлены ошибки
+- v1.5.1 - исправлена ошибка при запуске в релизах
