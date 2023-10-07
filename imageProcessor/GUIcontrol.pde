@@ -142,14 +142,15 @@ String generateName(int arrayH, int arrayW) {
 
 void generateBitmap() {
   String thisName = cp5.get(Textfield.class, "name").getText();
-  saveLines = "";
+  saveLines = "// " + thisName + ".h " + resultWidth + "x" + resultHeight;
   switch (saveMode) {
   case 0:  
     // ==== битмап для оледов ====
     int numRows = ceil(resultHeight / 8.0);    
-    saveLines = "const uint8_t " + thisName + generateName(numRows, resultWidth);
+    saveLines += " 8 pix/byte OLED\n";
+    saveLines += "const uint8_t " + thisName + generateName(numRows, resultWidth);
 
-    for (byte r = 0; r < numRows; r++) {
+    for (int r = 0; r < numRows; r++) {
       saveLines += "\t";
       if (dimension) saveLines += "{";
       for (int j = 0; j < resultWidth; j++) {     
@@ -165,8 +166,9 @@ void generateBitmap() {
     break;
   case 1:
     // линейный битмап
-    saveLines = "const uint8_t " + thisName + generateName(resultHeight, resultWidth/8);
-    for (byte h = 0; h < resultHeight; h++) {
+    saveLines += " 8 pix/byte\n";
+    saveLines += "const uint8_t " + thisName + generateName(resultHeight, resultWidth/8);
+    for (int h = 0; h < resultHeight; h++) {
       saveLines += "\t";
       if (dimension) saveLines += "{";
       for (int i = 0; i < resultWidth; i+=8) {      
@@ -182,7 +184,8 @@ void generateBitmap() {
     break;
   case 2:
     // 1 pix/byte, BW
-    saveLines = "const uint8_t " + thisName + generateName(resultHeight, resultWidth);
+    saveLines += " 1 pix/byte, BW\n";
+    saveLines += "const uint8_t " + thisName + generateName(resultHeight, resultWidth);
     for (int y = 0; y < resultHeight; y++) {
       saveLines += "\t";
       if (dimension) saveLines += "{";
@@ -196,7 +199,8 @@ void generateBitmap() {
     break;
   case 3:
     // ==== 1 pix/byte, Gray ====
-    saveLines = "const uint8_t " + thisName + generateName(resultHeight, resultWidth);
+    saveLines += " 1 pix/byte, Gray\n";
+    saveLines += "const uint8_t " + thisName + generateName(resultHeight, resultWidth);
     for (int y = 0; y < resultHeight; y++) {
       saveLines += "\t";
       if (dimension) saveLines += "{";
@@ -210,7 +214,8 @@ void generateBitmap() {
     break;
   case 4:
     // ==== rgb8 ====
-    saveLines = "const uint8_t " + thisName + generateName(resultHeight, resultWidth);
+    saveLines += " rgb8\n";
+    saveLines += "const uint8_t " + thisName + generateName(resultHeight, resultWidth);
     for (int y = 0; y < resultHeight; y++) {
       saveLines += "\t";
       if (dimension) saveLines += "{";
@@ -224,7 +229,8 @@ void generateBitmap() {
     break;
   case 5:
     // ==== rgb16 ====
-    saveLines = "const uint16_t " + thisName + generateName(resultHeight, resultWidth);
+    saveLines += " rgb16\n";
+    saveLines += "const uint16_t " + thisName + generateName(resultHeight, resultWidth);
     for (int y = 0; y < resultHeight; y++) {
       saveLines += "\t";
       if (dimension) saveLines += "{";
@@ -238,6 +244,7 @@ void generateBitmap() {
     break;
   case 6:
     // ==== rgb32 ====
+    saveLines += " rgb32\n";
     saveLines = "const uint32_t " + thisName + generateName(resultHeight, resultWidth);
     for (int y = 0; y < resultHeight; y++) {
       saveLines += "\t";
